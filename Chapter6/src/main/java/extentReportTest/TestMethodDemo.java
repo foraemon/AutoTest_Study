@@ -1,10 +1,8 @@
-package extentreportTest;
+package extentReportTest;
 
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
-
-import javax.security.auth.login.AccountExpiredException;
 
 /**
  * @author zoro

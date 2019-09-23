@@ -1,4 +1,4 @@
-package extentreportTest;
+package extentReportTest;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -14,12 +14,10 @@ import org.testng.xml.XmlSuite;
 import java.io.File;
 import java.util.*;
 
-
 /**
- * @author zoro
- * @date 2019/8/9 0009 下午 3:56
+ * Created by zero on 2019-09-23
  */
- class ExtentTestNGIReporterListener implements IReporter {
+public class ExtentTestNGIReporterListener implements IReporter {
     //生成的路径以及文件名
     private static final String OUTPUT_FOLDER = "test-output/";
     private static final String FILE_NAME = "index.html";
@@ -98,9 +96,9 @@ import java.util.*;
             }
 
         }
-        //        for (String s : Reporter.getOutput()) {
-        //            extent.setTestRunnerOutput(s);
-        //        }
+//        for (String s : Reporter.getOutput()) {
+//            extent.setTestRunnerOutput(s);
+//        }
 
         extent.flush();
     }
@@ -113,7 +111,7 @@ import java.util.*;
         }
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(OUTPUT_FOLDER + FILE_NAME);
         // 设置静态文件的DNS
-        //怎么解决cdn.rawqit.com访问不了的情况
+        //怎么样解决cdn.rawgit.com访问不了的情况
         htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
 
         htmlReporter.config().setDocumentTitle("api自动化测试报告");
@@ -174,6 +172,7 @@ import java.util.*;
                 for (String group : result.getMethod().getGroups()) {
                     test.assignCategory(group);
                 }
+
                 List<String> outputList = Reporter.getOutput(result);
                 for(String output:outputList){
                     //将用例的log输出报告中
@@ -189,8 +188,8 @@ import java.util.*;
                 test.getModel().setStartTime(getTime(result.getStartMillis()));
                 test.getModel().setEndTime(getTime(result.getEndMillis()));
             }
-        }        }
-
+        }
+    }
 
     private Date getTime(long millis) {
         Calendar calendar = Calendar.getInstance();
