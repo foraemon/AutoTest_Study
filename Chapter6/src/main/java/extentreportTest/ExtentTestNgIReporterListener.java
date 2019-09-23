@@ -2,13 +2,12 @@ package extentreportTest;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.ResourceCDN;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.TestAttribute;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.ExtentKlovReporter;
-import com.aventstack.extentreports.reporter.configuration.ResourceCDN;
+import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.vimalselvam.testng.EmailReporter;
 import org.testng.*;
 import org.testng.xml.XmlSuite;
 
@@ -20,10 +19,10 @@ import java.util.*;
  * @author zoro
  * @date 2019/8/9 0009 下午 3:56
  */
-public class ExtentTestNgIReporterListener implements IReporter{
+ class ExtentTestNGIReporterListener implements IReporter {
     //生成的路径以及文件名
     private static final String OUTPUT_FOLDER = "test-output/";
-    private static final String FILE_NAME = "report.html";
+    private static final String FILE_NAME = "index.html";
 
     private ExtentReports extent;
 
@@ -99,9 +98,9 @@ public class ExtentTestNgIReporterListener implements IReporter{
             }
 
         }
-//        for (String s : Reporter.getOutput()) {
-//            extent.setTestRunnerOutput(s);
-//        }
+        //        for (String s : Reporter.getOutput()) {
+        //            extent.setTestRunnerOutput(s);
+        //        }
 
         extent.flush();
     }
@@ -114,31 +113,17 @@ public class ExtentTestNgIReporterListener implements IReporter{
         }
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(OUTPUT_FOLDER + FILE_NAME);
         // 设置静态文件的DNS
-        //解决cdn.rawqit.com css访问不了的情况
+        //怎么解决cdn.rawqit.com访问不了的情况
         htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
+
         htmlReporter.config().setDocumentTitle("api自动化测试报告");
         htmlReporter.config().setReportName("api自动化测试报告");
         htmlReporter.config().setChartVisibilityOnOpen(true);
         htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP);
         htmlReporter.config().setTheme(Theme.STANDARD);
         htmlReporter.config().setCSS(".node.level-1  ul{ display:none;} .node.level-1.active ul{display:block;}");
-
-        //  创建一个KlovReporter对象
-        ExtentKlovReporter klov = new ExtentKlovReporter();
-        //  定义MongoDB连接
-        klov.initMongoDbConnection("localhost", 27017);
-        //  设置klov服务器URL
-        klov.initKlovServerConnection("http://localhost");
-        //  为我们的测试项目提供项目名称
-        klov.setProjectName("zuozewei-test");
-        klov.setReportName("1.0");
-
-        //  邮件报告名emailable-report.html
-        File emailReportFile = new File(reportDir, "emailable-report.html");
-        EmailReporter emailReporter = new EmailReporter(emailReportFile);
-
         extent = new ExtentReports();
-        extent.attachReporter(htmlReporter,klov,emailReporter);
+        extent.attachReporter(htmlReporter);
         extent.setReportUsesManualConfiguration(true);
     }
 
@@ -204,8 +189,8 @@ public class ExtentTestNgIReporterListener implements IReporter{
                 test.getModel().setStartTime(getTime(result.getStartMillis()));
                 test.getModel().setEndTime(getTime(result.getEndMillis()));
             }
-        }
-    }
+        }        }
+
 
     private Date getTime(long millis) {
         Calendar calendar = Calendar.getInstance();
