@@ -1,5 +1,11 @@
-java -jar ./moco-runner-0.12.0-standalone.jar http -p 8888 -c startUpGet.json
-post方法 在postman里测试的时候需要注意注意参数的类型，
-如果选用forms 则在postman的请求body中选择form-data
-如果选用json则需要在postman的请求body中选择raw 并选择json（application/json）
-带参数的get方法在postman需要在headers中添加key=cookie，value=“login=true”
+启动服务：java -jar ./moco-runner-0.12.0-standalone.jar http -p 8888 -c startUpGet.json
+停止服务：Ctrl+c
+1、post方法 在postman里测试的时候需要注意参数的类型，
+    1.1、如果选用forms 则在postman的请求body中选择form-data
+    1.2、如果选用json则需要在postman的请求body中选择raw 并选择json（application/json）
+2、带cookies的get方法在postman需要在headers中添加key=cookie，value=login=true
+3、带cookie的post方法在postman中需要在headers中添加key=cookie，value=login=true，
+    在body中选择raw 并选择json（application/json）输入格式如下：{
+                                                	"name":"huhansan",
+                                                	"age":"46"
+                                                }
